@@ -3,9 +3,9 @@ import { join } from 'path';
 import { existsSync } from 'fs';
 
 type RouteContext = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 export async function GET(
@@ -15,6 +15,7 @@ export async function GET(
   try {
     const { id } = await params;
     const jobId = id;
+    
     // Support permanent demo files
     const isDemo = jobId.startsWith('demo_results/');
     const baseDir = isDemo
@@ -28,15 +29,11 @@ export async function GET(
     const vocalsMp3 = join(outputDir, 'htdemucs', 'input', 'vocals.mp3');
     const instrumentalMp3 = join(outputDir, 'htdemucs', 'input', 'no_vocals.mp3');
 
-    let vocalsPath, instrumentalPath, vocalsUrl, instrumentalUrl;
+    let vocalsUrl, instrumentalUrl;
     if (existsSync(vocalsMp3) && existsSync(instrumentalMp3)) {
-      vocalsPath = vocalsMp3;
-      instrumentalPath = instrumentalMp3;
       vocalsUrl = `${isDemo ? `/${jobId}` : `/uploads/${jobId}`}/output/htdemucs/input/vocals.mp3`;
       instrumentalUrl = `${isDemo ? `/${jobId}` : `/uploads/${jobId}`}/output/htdemucs/input/no_vocals.mp3`;
     } else if (existsSync(vocalsWav) && existsSync(instrumentalWav)) {
-      vocalsPath = vocalsWav;
-      instrumentalPath = instrumentalWav;
       vocalsUrl = `${isDemo ? `/${jobId}` : `/uploads/${jobId}`}/output/htdemucs/input/vocals.wav`;
       instrumentalUrl = `${isDemo ? `/${jobId}` : `/uploads/${jobId}`}/output/htdemucs/input/no_vocals.wav`;
     } else {
@@ -60,4 +57,4 @@ export async function GET(
     console.error('Error fetching results:', error);
     return NextResponse.json({ error: 'Failed to fetch results' }, { status: 500 });
   }
-} 
+}

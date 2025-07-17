@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
@@ -127,12 +128,12 @@ export default function Home() {
               >
                 Download Sample
               </a>
-              <a
+              <Link
                 href="/results/demo_results%2FDEMO_SAMPLE_ID"
                 className="flex-1 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 text-center"
               >
                 View Separated File
-              </a>
+              </Link>
             </div>
             {/* Add more samples here as needed */}
           </div>

@@ -2,6 +2,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 
 export default function ResultsPage() {
   const params = useParams();
@@ -64,12 +65,12 @@ export default function ResultsPage() {
         <div className="text-center">
           <h2 className="text-2xl font-semibold mb-4 text-red-600">Error</h2>
           <p className="text-gray-600 mb-4">{error}</p>
-          <a
+          <Link
             href="/"
             className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
             Try Again
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -197,7 +198,7 @@ export default function ResultsPage() {
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Home button in top left */}
         <div className="flex justify-start">
-          <a
+          <Link
             href="/"
             className="p-3 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors flex items-center justify-center"
             title="Back to Home"
@@ -205,7 +206,7 @@ export default function ResultsPage() {
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
             </svg>
-          </a>
+          </Link>
         </div>
         <h1 className="text-3xl font-bold text-center mb-8">Audio Separation Results</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -216,12 +217,12 @@ export default function ResultsPage() {
           <SimpleAudioPlayer src={originalPath} label="Original" />
         </div>
         <div className="text-center mt-8">
-          <a
+          <Link
             href="/"
             className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
             Process Another File
-          </a>
+          </Link>
           {!isDemo && (
             <button
               onClick={handleCleanup}
