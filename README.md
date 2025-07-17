@@ -86,66 +86,51 @@ pip install demucs
 2. **View results**: Click "View Separated File" to see pre-processed results
 3. **Explore**: Listen to the separated tracks without uploading anything
 
-## Deployment to Vercel
+## Deployment Options
 
-### Step 1: Prepare Your Repository
+### Option 1: Vercel (Demo Only)
 
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
+**⚠️ Important**: Vercel deployment is limited to demo functionality only. File uploads are disabled in production due to serverless limitations.
 
-2. **Ensure Demucs is available**
-   - Vercel will need to install Demucs during build
-   - We'll configure this in the next step
+**Deploy to Vercel**:
+1. Push to GitHub: `git add . && git commit -m "Deploy" && git push`
+2. Go to [vercel.com](https://vercel.com) and import your repository
+3. Deploy with default settings
+4. The deployed app will show the demo but disable file uploads
 
-### Step 2: Deploy to Vercel
+**Limitations**:
+- File uploads disabled in production
+- No audio processing on Vercel
+- Demo files work perfectly
+- Good for showcasing the UI and demo functionality
 
-1. **Go to Vercel**
-   - Visit [vercel.com](https://vercel.com)
-   - Sign in with your GitHub account
+### Option 2: Local Development (Full Features)
 
-2. **Import your project**
-   - Click "New Project"
-   - Select your repository from the list
-   - Click "Import"
+For full functionality including file uploads:
 
-3. **Configure build settings**
-   - **Framework Preset**: Next.js
-   - **Root Directory**: `./` (leave as default)
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `.next` (leave as default)
-   - **Install Command**: `npm install`
-
-4. **Add environment variables** (if needed)
-   - No environment variables required for this project
-
-5. **Deploy**
-   - Click "Deploy"
-   - Wait for the build to complete
-
-### Step 3: Install Demucs on Vercel
-
-Since Vercel doesn't have Demucs pre-installed, you'll need to add it to your build process. Add this to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "build": "pip install demucs && next build",
-    "vercel-build": "pip install demucs && next build"
-  }
-}
+```bash
+# Clone and run locally
+git clone <your-repo-url>
+cd demucs_karaoke
+npm install
+npm run dev
 ```
 
-### Step 4: Configure Vercel Functions
+### Option 3: Alternative Platforms (Full Features)
 
-Vercel has a timeout limit for serverless functions. For audio processing, you might need to:
+For production deployment with full audio processing:
 
-1. **Upgrade to Vercel Pro** (if processing large files)
-2. **Use Vercel's Edge Runtime** for better performance
-3. **Consider using a separate API service** for heavy processing
+1. **Railway**: Better for long-running processes
+2. **Render**: Good for background jobs  
+3. **DigitalOcean App Platform**: More control
+4. **AWS Lambda**: With longer timeout limits
+5. **Google Cloud Functions**: Similar to AWS Lambda
+
+### Recommended Approach
+
+1. **Deploy to Vercel** for demo/portfolio purposes
+2. **Run locally** for full functionality
+3. **Use alternative platforms** for production audio processing
 
 ## Project Structure
 

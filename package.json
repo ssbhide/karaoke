@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "pip install demucs && next build",
-    "vercel-build": "pip install demucs && next build",
+    "build": "next build",
+    "vercel-build": "next build",
     "start": "next start",
     "lint": "next lint"
   },

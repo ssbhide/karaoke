@@ -18,6 +18,12 @@ export default function Home() {
     e.preventDefault();
     if (!file) return;
 
+    // Check if we're in production (Vercel)
+    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+      alert('File upload is only available in local development. Please run this app locally to process your own files.');
+      return;
+    }
+
     setIsProcessing(true);
     const formData = new FormData();
     formData.append("audio", file);
@@ -43,6 +49,8 @@ export default function Home() {
     }
   };
 
+  const isProduction = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
+
   return (
     <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 py-8">
       {/* Hero/Description Section */}
@@ -51,6 +59,14 @@ export default function Home() {
         <p className="text-lg md:text-xl text-gray-700 mb-6">
           Instantly separate vocals and instrumentals from any song. Upload your own MP3 or try our sample file!
         </p>
+        {isProduction && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <p className="text-yellow-800">
+              <strong>Note:</strong> File upload is only available in local development. 
+              For production use, please run this app locally or use a dedicated audio processing service.
+            </p>
+          </div>
+        )}
       </section>
 
       {/* Main Content Grid */}
@@ -58,26 +74,42 @@ export default function Home() {
         {/* Upload/Process Section */}
         <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
           <h2 className="text-2xl font-bold mb-4 text-blue-600">Upload Your Song</h2>
-          <form onSubmit={handleSubmit} className="w-full space-y-6">
-            <div>
-              <label className="block">
-                <span className="sr-only">Choose audio file</span>
-                <input
-                  type="file"
-                  accept=".mp3"
-                  onChange={handleFileChange}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                />
-              </label>
+          {isProduction ? (
+            <div className="text-center">
+              <p className="text-gray-600 mb-4">
+                File upload is disabled in production for performance reasons.
+              </p>
+              <a
+                href="https://github.com/your-username/demucs_karaoke"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Run Locally
+              </a>
             </div>
-            <button
-              type="submit"
-              disabled={!file || isProcessing}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-            >
-              {isProcessing ? "Processing..." : "Separate Audio"}
-            </button>
-          </form>
+          ) : (
+            <form onSubmit={handleSubmit} className="w-full space-y-6">
+              <div>
+                <label className="block">
+                  <span className="sr-only">Choose audio file</span>
+                  <input
+                    type="file"
+                    accept=".mp3"
+                    onChange={handleFileChange}
+                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  />
+                </label>
+              </div>
+              <button
+                type="submit"
+                disabled={!file || isProcessing}
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              >
+                {isProcessing ? "Processing..." : "Separate Audio"}
+              </button>
+            </form>
+          )}
         </div>
 
         {/* Sample File Section */}
@@ -112,6 +144,18 @@ export default function Home() {
         <p>
           Powered by Demucs. No files are stored after processing. Works best with short MP3s.
         </p>
+        {isProduction && (
+          <p className="mt-2">
+            <a 
+              href="https://github.com/your-username/demucs_karaoke" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline"
+            >
+              View on GitHub
+            </a>
+          </p>
+        )}
       </section>
     </main>
   );
