@@ -148,7 +148,7 @@ export default function Home() {
         {isProduction && (
           <p className="mt-2">
             <a 
-              href="https://github.com/your-username/demucs_karaoke" 
+              href="https://github.com/ssbhide/karaoke" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-blue-600 hover:underline"
