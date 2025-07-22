@@ -81,7 +81,7 @@ export default function Home() {
                 File upload is disabled in production for performance reasons.
               </p>
               <a
-                href="https://github.com/your-username/demucs_karaoke"
+                href="https://github.com/ssbhide/karaoke"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
